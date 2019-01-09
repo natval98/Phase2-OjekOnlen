@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -23,4 +22,15 @@ public class BookingController {
     public ResponseEntity<List<Booking>> getAllBookings(){
         return new ResponseEntity<>(bookingService.getAllBookings(), HttpStatus.OK);
     }
+
+    @PostMapping("/create")
+    @ResponseBody
+    public Booking createBooking(
+            @RequestBody Booking booking,
+            @RequestParam(value = "memberId") Long memberId,
+            @RequestParam(value = "driverId") Long driverId,
+            @RequestParam(value = "paymentId") Integer paymentId) throws ParseException {
+        return bookingService.createBooking(booking, memberId, driverId, paymentId);
+    }
+
 }

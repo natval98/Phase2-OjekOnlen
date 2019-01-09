@@ -20,7 +20,9 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver getDriver(Long id){
-        return driverRepository.findDriverById(id);
+        Driver existsDriver = driverRepository.findDriverById(id);
+        if (existsDriver != null) return existsDriver;
+        else throw new RuntimeException("Driver is not exists!");
     }
 
     @Override

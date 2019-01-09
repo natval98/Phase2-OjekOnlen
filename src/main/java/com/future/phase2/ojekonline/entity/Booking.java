@@ -50,6 +50,7 @@ public class Booking {
         REQUEST,
         ONGOING,
         DONE,
+        BOOKED,
         CANCELLED
     }
 
