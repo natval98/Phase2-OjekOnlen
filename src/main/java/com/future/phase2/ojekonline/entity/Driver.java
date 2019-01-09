@@ -30,4 +30,17 @@ public class Driver {
     @OneToMany(mappedBy = "driver")
     @JsonIgnore
     List<Booking> bookings;
+
+    public Driver(Long id, String name, Double balance, String motorNum) {
+        this.id = id;
+        this.name = name;
+        this.balance = balance;
+        this.motorNum = motorNum;
+    }
+
+    public Driver(String name, Double balance, String motorNum) {
+        this.name = name;
+        this.balance = balance;
+        this.motorNum = motorNum;
+    }
 }

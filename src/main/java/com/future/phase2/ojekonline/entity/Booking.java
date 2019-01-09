@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "BOOKING")
@@ -17,7 +18,7 @@ import java.util.Date;
 public class Booking {
 
     @Id
-    private String id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
