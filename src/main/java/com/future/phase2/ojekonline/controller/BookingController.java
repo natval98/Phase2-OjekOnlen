@@ -17,12 +17,14 @@ public class BookingController {
     @Autowired
     BookingService bookingService;
 
+    // List booking
     @GetMapping("/all")
     @ResponseBody
     public ResponseEntity<List<Booking>> getAllBookings(){
         return new ResponseEntity<>(bookingService.getAllBookings(), HttpStatus.OK);
     }
 
+    // Request booking NOW / LATER
     @PostMapping("/create")
     @ResponseBody
     public Booking createBooking(
@@ -31,6 +33,13 @@ public class BookingController {
             @RequestParam(value = "driverId") Long driverId,
             @RequestParam(value = "paymentId") Integer paymentId) throws ParseException {
         return bookingService.createBooking(booking, memberId, driverId, paymentId);
+    }
+
+    // Cancel booking
+    @PutMapping("/{id}/cancel")
+    @ResponseBody
+    public Booking cancelBooking(@PathVariable String id){
+        return bookingService.cancelBooking(id);
     }
 
 }

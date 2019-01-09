@@ -53,9 +53,7 @@ public class BookingServiceImpl implements BookingService {
         Date dateNow = sdf.parse(dateNowString);
         Date dateBooking = sdf.parse(dateBookingString);
 
-
-
-        newBooking.setId(UUID.randomUUID());
+        newBooking.setId(UUID.randomUUID().toString());
         newBooking.setAddressFrom(booking.getAddressFrom());
         newBooking.setAddressTo(booking.getAddressTo());
         newBooking.setAmount(booking.getAmount());
@@ -72,5 +70,28 @@ public class BookingServiceImpl implements BookingService {
         newBooking.setMember(member);
         newBooking.setPayment(payment);
         return bookingRepository.save(newBooking);
+    }
+
+    @Override
+    public Booking cancelBooking(String id){
+        Booking existBooking = bookingRepository.findOne(id);
+        if (existBooking != null){
+            if (existBooking.getBookingType().toString().equals("REQUEST") || existBooking.getBookingType().toString().equals("BOOKED")){
+                existBooking.setBookingType(Booking.bookingType.CANCELLED);
+                return bookingRepository.save(existBooking);
+            }
+            else throw new RuntimeException("Cancel booking not allowed!");
+
+        }
+        else throw new RuntimeException("Booking not found!");
+    }
+
+    @Override
+    public List<Booking> listMemberBookingHistory(Long memberId){
+        Member member = memberRepository.findOne(memberId);
+        if (member != null) {
+            return bookingRepository.findBookingsByMember(member);
+        }
+        else throw new RuntimeException("Member & history not found!");
     }
 }

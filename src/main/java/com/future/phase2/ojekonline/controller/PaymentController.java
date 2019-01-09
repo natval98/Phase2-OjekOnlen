@@ -33,6 +33,7 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
+    // List Payment Methods
     @GetMapping("/all")
     @ResponseBody
     public ResponseEntity<List<Payment>> getAllPayments(){

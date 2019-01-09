@@ -1,7 +1,10 @@
 package com.future.phase2.ojekonline.controller;
 
+import com.future.phase2.ojekonline.entity.Booking;
 import com.future.phase2.ojekonline.entity.Member;
+import com.future.phase2.ojekonline.service.BookingService;
 import com.future.phase2.ojekonline.service.MemberService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,9 @@ import java.util.List;
 public class MemberController {
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    BookingService bookingService;
 
     @GetMapping("/all")
     @ResponseBody
@@ -46,5 +52,14 @@ public class MemberController {
         memberService.deleteMember(id);
         return new ResponseEntity<>("Member already deleted", HttpStatus.OK);
     }
+
+    // list booking history
+    @GetMapping("/{id}/bookings")
+    @ResponseBody
+    public ResponseEntity<List<Booking>> listBookingHistory(@PathVariable Long id){
+        List<Booking> bookings = bookingService.listMemberBookingHistory(id);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+
 
 }

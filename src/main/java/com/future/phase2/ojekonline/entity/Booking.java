@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Booking {
 
     @Id
-    private UUID id;
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
